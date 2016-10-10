@@ -22,10 +22,11 @@ RUN wget -q http://mirror.fibergrid.in/apache/kafka/"$KAFKA_VERSION"/kafka_"$SCA
 
 RUN ln -s $KAFKA_HOME /opt/kafka
 
-WORKDIR	kafka
+WORKDIR	$KAFKA_HOME
 
 ADD supervisor/kafka.conf supervisor/zookeeper.conf /etc/supervisor/conf.d/
+ADD script/start.sh /opt/
 
 EXPOSE 2181 9092
 
-CMD ["supervisord", "-n"]
+CMD ["/opt/start.sh"]
